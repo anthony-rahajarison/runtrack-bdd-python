@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
--- Host: localhost    Database: job7
+-- Host: localhost    Database: entreprise
 -- ------------------------------------------------------
 -- Server version	8.0.41
 
@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `entreprise`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `entreprise` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `entreprise`;
+
+--
 -- Table structure for table `employe`
 --
 
@@ -28,7 +36,9 @@ CREATE TABLE `employe` (
   `prenom` varchar(255) NOT NULL,
   `salaire` decimal(10,2) NOT NULL,
   `id_service` int NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_service` (`id_service`),
+  CONSTRAINT `fk_service` FOREIGN KEY (`id_service`) REFERENCES `service` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,6 +51,30 @@ LOCK TABLES `employe` WRITE;
 INSERT INTO `employe` VALUES (1,'Dupont','Alice',2500.50,1),(2,'Martin','Jean',3200.00,2),(3,'Bernard','Sophie',2800.75,1),(4,'Durand','Luc',3100.25,3),(5,'Lefevre','Emma',2700.80,2),(6,'Moreau','Paul',2900.40,1),(7,'Fournier','Laura',3300.60,3),(8,'Girard','Hugo',3050.00,2),(9,'Bonnet','Clara',2600.90,1),(10,'Rousseau','Nicolas',3400.30,3);
 /*!40000 ALTER TABLE `employe` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `service`
+--
+
+DROP TABLE IF EXISTS `service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `service` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service`
+--
+
+LOCK TABLES `service` WRITE;
+/*!40000 ALTER TABLE `service` DISABLE KEYS */;
+INSERT INTO `service` VALUES (1,'Developpement'),(2,'Marketing'),(3,'Ressources Humaines');
+/*!40000 ALTER TABLE `service` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -51,4 +85,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-12  0:38:07
+-- Dump completed on 2025-03-12 15:58:59
